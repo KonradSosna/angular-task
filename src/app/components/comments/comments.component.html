@@ -1,0 +1,58 @@
+<button
+  *ngIf="!isLoadingPost"
+  (click)="getComments()"
+  class="btn"
+  mat-stroked-button
+  [class.spinner]="isLoadingComment"
+  [disabled]="isLoadingComment"
+>
+  Fetch comments
+</button>
+
+<div *ngIf="!isLoadingComment && comments.length > 0" class="container">
+  <mat-card *ngFor="let comment of comments" class="card">
+    <mat-card-header><h2>Comment</h2> </mat-card-header>
+    <div *ngIf="comment">
+      <mat-card-content>
+        <div [innerHTML]="comment.content"></div>
+      </mat-card-content>
+      <mat-card-footer class="footer">
+        <img src="{{ comment.author.avatar_URL }}" />
+        <h3>{{ comment.author.name }}</h3>
+        <p>{{ comment.date | date : "short" }}</p>
+      </mat-card-footer>
+    </div>
+    <div *ngIf="!comment">
+      <mat-card-content>
+        <p>No comments found</p>
+      </mat-card-content>
+    </div>
+  </mat-card>
+</div>
+
+<div *ngIf="isLoadingComment" class="container">
+  <ngx-skeleton-loader
+    count="3"
+    animation="pulse"
+    [theme]="{
+      'border-radius': '5px',
+      height: '400px',
+      width: '300px',
+      border: '1px solid white',
+      margin: '20px'
+    }"
+    appearance="line"
+  ></ngx-skeleton-loader>
+</div>
+
+<div *ngIf="commentError" class="container">
+  <mat-card
+    style="width: 600px; text-align: center; justify-content: center"
+    class="card"
+  >
+    <mat-card-content>
+      <mat-icon fontIcon="error"></mat-icon>
+      <div>{{ commentError }}</div>
+    </mat-card-content>
+  </mat-card>
+</div>
