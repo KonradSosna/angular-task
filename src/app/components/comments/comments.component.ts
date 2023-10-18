@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { take } from 'rxjs';
 import { concat } from 'rxjs/internal/observable/concat';
 import { CommentService } from 'src/app/services/comment.service';
 import { Comment } from 'src/app/types/comment';
@@ -27,7 +28,7 @@ export class CommentsComponent {
     );
 
     concat(...postsList)
-      // .pipe(take(this.postsIds.length))
+      .pipe(take(this.postsIds.length))
       .subscribe({
         next: (response) => {
           this.comments = [...this.comments, response.comments[0]];
