@@ -20,7 +20,7 @@ export class AppComponent {
     this.isLoadingPost = true;
     this.getPostsService
       .getPosts()
-      .pipe(take(1))
+      // .pipe(take(1)) not necessary because Httpclient after returning data will end observable, so it will have only one event
       .subscribe({
         next: (data) => {
           this.posts = data.posts;

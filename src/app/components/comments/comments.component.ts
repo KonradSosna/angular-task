@@ -28,7 +28,7 @@ export class CommentsComponent {
     );
 
     concat(...postsList)
-      .pipe(take(this.postsIds.length))
+      // .pipe(take(this.postsIds.length))
       .subscribe({
         next: (response) => {
           this.comments = [...this.comments, response.comments[0]];
